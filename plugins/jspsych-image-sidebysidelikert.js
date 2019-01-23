@@ -57,7 +57,7 @@ jsPsych.plugins['image-sidebysidelikert'] = (function() {
     var html = "";
     // inject CSS for trial
     html += '<style id="jspsych-survey-likert-css">';
-    html += ".jspsych-survey-likert-statement { display:block; font-size: 16px; padding-top: 40px; margin-bottom:10px; }"+
+    html += ".jspsych-survey-likert-statement { display:block; font-size: 16px; }"+
       ".jspsych-survey-likert-opts { list-style:none; width:100%; margin:0; padding:0 0 35px; display:block; font-size: 14px; line-height:1.1em; }"+
       ".jspsych-survey-likert-opt-label { line-height: 1.1em; color: #444; }"+
       ".jspsych-survey-likert-opts:before { content: ''; position:relative; top:11px; /*left:9.5%;*/ display:block; background-color:#efefef; height:4px; width:100%; }"+
@@ -68,12 +68,14 @@ jsPsych.plugins['image-sidebysidelikert'] = (function() {
 
     // show preamble text
     if(trial.preamble !== null){
-      html += '<div id="jspsych-survey-likert-preamble" class="jspsych-survey-likert-preamble" style="display: inline-block; vertical-align: top; position: sticky; top: 25%; margin: 25px;">'+trial.preamble+'</div>';
+      html += '<div id="jspsych-survey-likert-preamble" class="jspsych-survey-likert-preamble" style="display: inline-block; vertical-align: top">'+trial.preamble+'</div>';
     }
-    html += '<form id="jspsych-survey-likert-form" style="display: inline-block">';
+    html += '<form id="jspsych-survey-likert-form" style="display: inline-block; width: 65%">';
+    html += '<div style="display: flex; flex-wrap: wrap; width: 100%">'
 
     // add likert scale questions
     for (var i = 0; i < trial.questions.length; i++) {
+      html += '<div style="width: 25%; margin: 0px 30px">'
       // add question
       html += '<label class="jspsych-survey-likert-statement">' + trial.questions[i].prompt + '</label>';
       // add options
@@ -88,11 +90,14 @@ jsPsych.plugins['image-sidebysidelikert'] = (function() {
       }
       options_string += '</ul>';
       html += options_string;
+      html += '</div>'
+
     }
 
+    html += '</div>'
     // add submit button
     html += '<input type="submit" id="jspsych-survey-likert-next" class="jspsych-survey-likert jspsych-btn" value="'+trial.button_label+'"></input>';
-
+  
     html += '</form>'
 
     display_element.innerHTML = html;
